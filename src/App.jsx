@@ -1,59 +1,25 @@
-import { useState } from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"; // ✅ Import BrowserRouter
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HistoryPage from "./history_page/history_page.jsx";
+import Login from "./login_page/login_page.jsx";
+import Signup from "./signup_page/signup_page.jsx";
+import HomePage from "./home_page/home_page.jsx";
 import "./App.css";
-import OrderBar from "./components/order_display_bar/current_display_bar/currrent_order_display.jsx";
-import CompletedOrderBar from "./components/order_display_bar/completed_display_bar/completed_order_display.jsx";
-import Sidebar from "./components/side_option_bar/sidebar.jsx";
-import HistoryPage from "./components/history_page/history_page.jsx";
 
 function App() {
-  const [orders, setOrders] = useState([
-    {
-      orderNumber: "123",
-      menuNumber: "5",
-      itemName: "Burger",
-      specialInstruction: "No onions",
-      customerDetails: "John Doe, Table 4",
-    },
-    {
-      orderNumber: "124",
-      menuNumber: "10",
-      itemName: "Pasta",
-      specialInstruction: "Extra cheese",
-      customerDetails: "Jane Smith, Table 7",
-    },
-  ]);
-
-  const [selected, setSelected] = useState("current");
-
   return (
-    <Router> {/* ✅ Wrap inside BrowserRouter */}
-      <div className="App">
-        <Sidebar selected={selected} onSelect={setSelected} />
+    <Router>
+      <Routes>
+        {/* Login and Signup Routes */}
+        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
 
-        <Routes>
-          {/* Default view: Current and Completed Orders */}
-          <Route
-            path="/"
-            element={
-              <div className="orders">
-                <h2>Current Orders</h2>
-                {orders.map((order, index) => (
-                  <OrderBar key={index} order={order} />
-                ))}
+        {/* Orders Page */}
+        <Route path="/home" element={<HomePage />} />
 
-                <h2>Completed Orders</h2>
-                {orders.map((order, index) => (
-                  <CompletedOrderBar key={index} order={order} />
-                ))}
-              </div>
-            }
-          />
-
-          {/* History Page */}
-          <Route path="/history" element={<HistoryPage />} />
-        </Routes>
-      </div>
+        {/* History Page */}
+        <Route path="/history" element={<HistoryPage />} />
+      </Routes>
     </Router>
   );
 }

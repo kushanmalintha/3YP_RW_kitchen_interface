@@ -12,7 +12,7 @@ const Sidebar = ({ selected, onSelect }) => {
   const handleCurrentOrdersClick = () => {
     // If the user is on the history page, navigate back to the main page
     if (window.location.pathname === "/history") {
-      window.location.href = "/";
+      window.location.href = "/home";
     }
     onSelect("current");
   };
